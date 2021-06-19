@@ -33,7 +33,7 @@ namespace IdealGasLaws
                 Console.WriteLine("Which of these gases do you want to talk about? (Caps/Lowercase Letters aren't necessary)");
                 string thisGas = Console.ReadLine();
                 bool isValid = new bool();
-                double thisWeight= GetMolecularWeightFromName(thisGas,  gases, weights, counting,ref isValid);
+                double thisWeight = GetMolecularWeightFromName(thisGas, gases, weights, counting, ref isValid);
                 if (!isValid)
                 {
                     Console.WriteLine("That's not an exact match to any of the gases in my database. Do you want to try again? (Y/N)");
