@@ -85,7 +85,8 @@ namespace IdealGasLaws
                         }
                     }
                 }
-                myGas.SetVolume(volume);                                                    Console.WriteLine("And, what is the mass of the gas, in this case (in grams)?");
+                myGas.SetVolume(volume);                                                    
+                Console.WriteLine("And, what is the mass of the gas, in this case (in grams)?");
                 string massString;
                 double mass;
                 do
