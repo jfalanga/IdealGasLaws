@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -59,20 +60,8 @@ namespace IdealGasLaws
             return _Mass;
         }
         
-        private void Calc()
-        {
-            //I need to remark that I did have some help on
-            //this one- from my programmer father! Helped remind me of what
-            //public, private, static, etc., mean!
-            
-            double n = Program.NumberOfMoles(GetMass(), GetMolecularWeight());
-            double r = 8.3145;
-
-            double temp = GetTemperature();
-            temp=Program.CelsiusToKelvin(temp);
-
-            _Pressure = ((n * r * temp) / GetVolume());
-        }
+        
         
     }
 }
+*/

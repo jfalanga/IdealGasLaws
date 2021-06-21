@@ -47,45 +47,19 @@ namespace IdealGasLaws
                     }
 
                 }
-                IdealGass myGas = new IdealGass();
-                myGas.SetMolecularWeight(thisWeight);
+                
+               // myGas.SetMolecularWeight(thisWeight);
                 Console.WriteLine("What is the volume of the gas? (In cubic meters?)");
                 string volumeString;
                 double volume=0.0;
-                bool tBool = false;
-                while (!tBool)
-                {
-                    try
-                    {
-                        volumeString = Console.ReadLine();
-                        volume = Double.Parse(volumeString);
-                    }
-                    catch (FormatException)
-                    {
-                        continue;
-                    }
-                    catch (OverflowException)
-                    {
-                        Console.WriteLine("That number was too big!");
-                        continue;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Something happened:");
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.GetType());
-                        Console.WriteLine("Do you want to continue and try again?");
-                        if (!YesOrNo())
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-                myGas.SetVolume(volume);                                                    
+                do
+                {                       //I have simple do loops to make sure the user is entering
+                                        //proper doubles. (Probably should be... either simpler, or put in a 
+                                        //method of their own, but I was getting tired at this point, so...
+                    volumeString = Console.ReadLine();
+                } while (!Double.TryParse(volumeString, out volume));
+                
+                                                               
                 Console.WriteLine("And, what is the mass of the gas, in this case (in grams)?");
                 string massString;
                 double mass;
@@ -93,7 +67,7 @@ namespace IdealGasLaws
                 {
                     massString = Console.ReadLine();
                 } while (!Double.TryParse(massString, out mass));
-                myGas.SetMass(mass);
+                
                 Console.WriteLine("Now, tell me what the temperature of this gas is?");
                 string stringTemp;
                 double temperature;
@@ -101,8 +75,8 @@ namespace IdealGasLaws
                 {
                     stringTemp = Console.ReadLine();
                 } while (!Double.TryParse(stringTemp, out temperature));
-                myGas.SetTemperature(temperature);
-                double pres = myGas.GetPressure();
+                
+                double pres = Pressure(mass, volume, temperature, thisWeight);
                 DisplayPressure(pres);
                 Console.WriteLine("\nDo you want to try that for a different gas? (Y/N)");
                 keepGoing = YesOrNo();
@@ -255,7 +229,7 @@ namespace IdealGasLaws
                 return false;   //This'll be triggered if we're dealing with a multiple of 3
             }
             return true;
-            IdealGass jew = new IdealGass();
+            
         }
 
         private static double GetMolecularWeightFromName(string gasName, string[] gasNames, double[] molecularWeights, int countGases, ref bool valid)
@@ -316,6 +290,20 @@ namespace IdealGasLaws
         public static double PaToPSI(double pascals)
         {
             return 0.0001450377 * pascals;
+        }
+
+        static double Pressure(double mass, double volume, double temp, double molWeight)
+        {
+            //********THESE REMARKS PERTAIN TO PART 2! IGNORE)*************
+            //I need to remark that I did have some help on  
+            //this one- from my programmer father! Helped remind me of what
+            //public, private, static, etc., mean!
+
+            double n = NumberOfMoles(mass, molWeight);
+            double r = 8.3145;
+            temp = Program.CelsiusToKelvin(temp);
+
+            return (n * r * temp) / volume;
         }
         //End of methods- here for navigation purposes
     }
