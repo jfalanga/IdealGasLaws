@@ -50,57 +50,17 @@ namespace IdealGasLaws
                 IdealGass myGas = new IdealGass();
                 myGas.SetMolecularWeight(thisWeight);
                 Console.WriteLine("What is the volume of the gas? (In cubic meters?)");
-                string volumeString;
-                double volume=0.0;
-                bool tBool = false;
-                while (!tBool)
-                {
-                    try
-                    {
-                        volumeString = Console.ReadLine();
-                        volume = Double.Parse(volumeString);
-                    }
-                    catch (FormatException)
-                    {
-                        continue;
-                    }
-                    catch (OverflowException)
-                    {
-                        Console.WriteLine("That number was too big!");
-                        continue;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Something happened:");
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.GetType());
-                        Console.WriteLine("Do you want to continue and try again?");
-                        if (!YesOrNo())
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-                myGas.SetVolume(volume);                                                    Console.WriteLine("And, what is the mass of the gas, in this case (in grams)?");
-                string massString;
-                double mass;
-                do
-                {
-                    massString = Console.ReadLine();
-                } while (!Double.TryParse(massString, out mass));
-                myGas.SetMass(mass);
+                
+                myGas.SetVolume(userDouble());                                                    Console.WriteLine("And, what is the mass of the gas, in this case (in grams)?");
+
+                Console.WriteLine("And, then... what would the MASS, here, be?");
+                myGas.SetMass(userDouble());
+
                 Console.WriteLine("Now, tell me what the temperature of this gas is?");
-                string stringTemp;
-                double temperature;
-                do
-                {
-                    stringTemp = Console.ReadLine();
-                } while (!Double.TryParse(stringTemp, out temperature));
-                myGas.SetTemperature(temperature);
+                myGas.SetTemperature(userDouble());
+                
+                
+
                 double pres = myGas.GetPressure();
                 DisplayPressure(pres);
                 Console.WriteLine("\nDo you want to try that for a different gas? (Y/N)");
@@ -109,6 +69,49 @@ namespace IdealGasLaws
 
         }
 
+        private static double userDouble()
+        {
+            double num = 0.0;
+            bool tBool = false;
+            while (!tBool)
+            {
+                try
+                {
+                    string numString = Console.ReadLine();
+                    num = Double.Parse(numString);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("That didn't look like a number. Please try again:");
+                    continue;
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("That number was too big!");
+                    continue;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Something happened:");
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.GetType());
+                    Console.WriteLine("Do you want to continue and try again?"); 
+                        //After all, if something's gone wrong here... something's interesting
+                        //might be going on- so you might want to return to to the code-
+                        //or just stop it.
+                    if (!YesOrNo())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                tBool = true;
+            }
+            return num;
+        }
         public static double CelsiusToKelvin(double temp)
         {
             return temp+ 273.15;
