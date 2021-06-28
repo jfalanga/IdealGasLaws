@@ -15,7 +15,7 @@ namespace IdealGasLaws
         public void SetMolecularWeight(double mw)
         {
             _MolecularWeight = mw;
-            
+            Calc();
         }
 
         public double GetMolecularWeight()
@@ -35,12 +35,13 @@ namespace IdealGasLaws
         public void SetTemperature(double temp)
         {
             _Temp = temp;
+            Calc();
             
         }
         public void SetVolume(double vol)
         {
             _Volume = vol;
-            
+            Calc();
         }
 
         public double GetVolume()
@@ -51,7 +52,7 @@ namespace IdealGasLaws
         public void SetMass(double mass)
         {
             _Mass = mass;
-            
+            Calc();
         }
 
         public double GetMass()

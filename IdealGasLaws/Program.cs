@@ -32,9 +32,9 @@ namespace IdealGasLaws
             {
                 Console.WriteLine("Which of these gases do you want to talk about? (Caps/Lowercase Letters aren't necessary)");
                 string thisGas = Console.ReadLine();
-                bool isValid = new bool();
-                double thisWeight = GetMolecularWeightFromName(thisGas, gases, weights, counting, ref isValid);
-                if (!isValid)
+                
+                double thisWeight = GetMolecularWeightFromName(thisGas, gases, weights, counting);
+                if (thisWeight==-400.00)
                 {
                     Console.WriteLine("That's not an exact match to any of the gases in my database. Do you want to try again? (Y/N)");
                     bool yesNo = YesOrNo();
@@ -51,9 +51,9 @@ namespace IdealGasLaws
                 myGas.SetMolecularWeight(thisWeight);
                 Console.WriteLine("What is the volume of the gas? (In cubic meters?)");
                 
-                myGas.SetVolume(userDouble());                                                    Console.WriteLine("And, what is the mass of the gas, in this case (in grams)?");
+                myGas.SetVolume(userDouble());                                                    
+                Console.WriteLine("And, what is the mass of the gas, in this case (in grams)?");
 
-                Console.WriteLine("And, then... what would the MASS, here, be?");
                 myGas.SetMass(userDouble());
 
                 Console.WriteLine("Now, tell me what the temperature of this gas is?");
@@ -79,6 +79,12 @@ namespace IdealGasLaws
                 {
                     string numString = Console.ReadLine();
                     num = Double.Parse(numString);
+                    if (Double.IsInfinity(num))         //This is the only way, seemingly, to get whether
+                                                        //or not the Double is too big for itself!
+                    {
+                        Console.WriteLine("This number seems to large! Please try again:");
+                        continue;
+                    }
                 }
                 catch (FormatException)
                 {
@@ -260,9 +266,9 @@ namespace IdealGasLaws
             IdealGass jew = new IdealGass();
         }
 
-        private static double GetMolecularWeightFromName(string gasName, string[] gasNames, double[] molecularWeights, int countGases, ref bool valid)
+        private static double GetMolecularWeightFromName(string gasName, string[] gasNames, double[] molecularWeights, int countGases)
         {
-            valid = true;       //I'm adding this in case the user entered a "name" not on the list
+            
             int counter = 0;
 
             gasName = gasName.ToLower();        //can be THIS nice to the user!
@@ -282,8 +288,8 @@ namespace IdealGasLaws
                 else    //Thus, is the end of the list of gases,
                         //and the user has entered an improper name!
                 {
-                    valid = false;
-                    return 0.0;
+                    
+                    return -400.0;
                 }
                 counter++;
             }
