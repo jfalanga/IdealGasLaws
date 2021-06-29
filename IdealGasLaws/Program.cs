@@ -71,6 +71,8 @@ namespace IdealGasLaws
 
         private static double userDouble()
         {
+            //Since this will be done several times, I should do
+            //this in it's own method!
             double num = 0.0;
             bool tBool = false;
             while (!tBool)
@@ -91,7 +93,7 @@ namespace IdealGasLaws
                     Console.WriteLine("That didn't look like a number. Please try again:");
                     continue;
                 }
-                catch (OverflowException)
+                catch (OverflowException)   //Maybe, one day, there WILL be an overflow!
                 {
                     Console.WriteLine("That number was too big!");
                     continue;
@@ -104,7 +106,7 @@ namespace IdealGasLaws
                     Console.WriteLine("Do you want to continue and try again?"); 
                         //After all, if something's gone wrong here... something's interesting
                         //might be going on- so you might want to return to to the code-
-                        //or just stop it.
+                        //or just stop the program!
                     if (!YesOrNo())
                     {
                         break;
@@ -297,17 +299,7 @@ namespace IdealGasLaws
             return 400.0;       //Silly compiler thinks I there might be a chance it
                                 //wouldn't return anything from this method w/out this!
         }
-        /*
-        public static double Pressure(double mass, double vol, double temp, double molecularWeight)
-        {
-            double n = NumberOfMoles(mass, molecularWeight);
-            double r = 8.3145;
-            temp = CelsiusToKelvin(temp);
-
-            return ((n * r * temp) / vol);
-        }
-        */
-
+        
         public static double NumberOfMoles(double mass, double moleWeight)
         {
             return mass / moleWeight;
